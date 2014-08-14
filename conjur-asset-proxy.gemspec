@@ -17,6 +17,8 @@ Gem::Specification.new do |spec|
   spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
   spec.require_paths = ["lib"]
 
+  spec.add_dependency "gli", "~> 2.12.0"
+
   spec.add_runtime_dependency "conjur-cli", "~> 4.12"
   spec.add_runtime_dependency "rack", "~> 1.5"
   spec.add_runtime_dependency "rack-streaming-proxy", "~> 2.0"
