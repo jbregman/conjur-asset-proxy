@@ -38,8 +38,8 @@ module Conjur
       proxy.call env
     end
 
-    def start port: 8080, address: '127.0.0.1'
-      Rack::Server.start app: self, Port: port, Host: address
+    def start options
+      Rack::Server.start app: self, Port: options[:port] || 8080, Host: options[:address] || '127.0.0.1'
     end
   end
 end
