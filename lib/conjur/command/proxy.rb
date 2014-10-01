@@ -39,10 +39,17 @@ terminated.
         desc: "address to bind to",
         default_value: "127.0.0.1"
 
+    c.switch :k,
+        desc: "Don't verificate HTTPS certificate"
+
     c.action do |global_options, options, args|
       url = args.shift or help_now!("missing URL")
 
-      options.slice! :port, :address
+      if options[:k]
+        options[:insecure] = true
+      end
+
+      options.slice! :port, :address, :insecure
       options.delete :port unless options[:port].respond_to? :to_i
 
       require 'conjur/proxy'

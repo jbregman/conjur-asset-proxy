@@ -35,10 +35,32 @@ module Conjur
 
     def call env
       env["HTTP_AUTHORIZATION"] = conjur.credentials[:headers][:authorization]
-      proxy.call env
+
+      ret = proxy.call env
+
+      # hack for Docker Hub & Registry API
+      if ret[1].include?('x-docker-endpoints')
+        ret[1]['x-docker-endpoints'] = env['HTTP_HOST']
+      end
+
+      ret
     end
 
     def start options
+      if options[:insecure]
+        Net::HTTP.class_eval do
+          def use_ssl=(flag)
+            flag = flag ? true : false
+            if started? and @use_ssl != flag
+              raise IOError, "use_ssl value changed, but session already started"
+            end
+            @use_ssl = flag
+
+            self.verify_mode = OpenSSL::SSL::VERIFY_NONE
+          end
+        end
+      end
+
       Rack::Server.start app: self, Port: options[:port] || 8080, Host: options[:address] || '127.0.0.1'
     end
   end
