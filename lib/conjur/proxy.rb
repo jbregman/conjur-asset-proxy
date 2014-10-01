@@ -60,6 +60,10 @@ module Conjur
           end
         end
       end
+      
+      if options[:cacert]
+        OpenSSL::SSL::SSLContext::DEFAULT_CERT_STORE.add_file options[:cacert]
+      end
 
       Rack::Server.start app: self, Port: options[:port] || 8080, Host: options[:address] || '127.0.0.1'
     end

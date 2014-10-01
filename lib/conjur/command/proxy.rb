@@ -41,6 +41,9 @@ terminated.
 
     c.switch :k,
         desc: "Don't verificate HTTPS certificate"
+        
+    c.flag :cacert,
+        desc: "Verify SSL using the provided cert file"
 
     c.action do |global_options, options, args|
       url = args.shift or help_now!("missing URL")
@@ -49,7 +52,7 @@ terminated.
         options[:insecure] = true
       end
 
-      options.slice! :port, :address, :insecure
+      options.slice! :port, :address, :insecure, :cacert
       options.delete :port unless options[:port].respond_to? :to_i
 
       require 'conjur/proxy'
