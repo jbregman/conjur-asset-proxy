@@ -27,7 +27,13 @@ module Conjur
     def initialize url, conjur
       @conjur = conjur
       @proxy = Rack::StreamingProxy::Proxy.new nil do |request|
-        url + request.path
+        ret = "#{url}#{request.path}"
+
+        unless request.query_string.empty?
+          ret = "#{ret}?#{request.query_string}"
+        end
+
+        ret
       end
     end
 
