@@ -40,7 +40,14 @@ module Conjur
     attr_reader :proxy, :conjur
 
     def call env
-      env["HTTP_AUTHORIZATION"] = conjur.credentials[:headers][:authorization]
+      env['HTTP_AUTHORIZATION'] = conjur.credentials[:headers][:authorization]
+
+      if (env['REQUEST_METHOD'] == 'POST' || env['REQUEST_METHOD'] == 'PUT')
+        if !env.include?('CONTENT_LENGTH') && (!env.include?('TRANSFER_ENCODING') ||
+            env['TRANSFER_ENCODING'] != 'chunked')
+          env['CONTENT_LENGTH'] = '0'
+        end
+      end
 
       ret = proxy.call env
 
@@ -66,7 +73,7 @@ module Conjur
           end
         end
       end
-      
+
       if options[:cacert]
         OpenSSL::SSL::SSLContext::DEFAULT_CERT_STORE.add_file options[:cacert]
       end
