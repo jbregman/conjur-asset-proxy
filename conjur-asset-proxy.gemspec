@@ -4,7 +4,7 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'conjur/asset/proxy/version'
 
 Gem::Specification.new do |spec|
-  spec.name          = "conjur-asset-proxy-api"
+  spec.name          = "conjur-asset-proxy"
   spec.version       = Conjur::Asset::Proxy::VERSION
   spec.authors       = ["Rafał Rzepecki"]
   spec.email         = ["rafal@conjur.net"]
