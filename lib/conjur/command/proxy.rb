@@ -41,7 +41,7 @@ terminated.
 
     c.switch :k,
         desc: "Don't verificate HTTPS certificate"
-        
+
     c.flag :cacert,
         desc: "Verify SSL using the provided cert file"
 
@@ -51,6 +51,18 @@ terminated.
       if options[:k]
         options[:insecure] = true
       end
+
+      unless url.start_with?('http://') || url.start_with?('https://')
+        url = url.gsub(/^(.+?\:(\/)?(\/)?)?/, 'https://')
+      end
+
+      require 'uri'
+
+      uri = URI.parse(url)
+      uri.path = ''
+      uri.query = nil
+
+      url = uri.to_s
 
       options.slice! :port, :address, :insecure, :cacert
       options.delete :port unless options[:port].respond_to? :to_i
