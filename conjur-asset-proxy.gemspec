@@ -23,6 +23,7 @@ Gem::Specification.new do |spec|
   spec.add_runtime_dependency "rack", "~> 1.5"
   spec.add_runtime_dependency "rack-streaming-proxy", "~> 2.0"
   spec.add_runtime_dependency "thin", "~> 1.6"
+  spec.add_runtime_dependency "escape_utils", "~> 1.0"
 
   spec.add_development_dependency "bundler", "~> 1.6"
   spec.add_development_dependency "rake"
