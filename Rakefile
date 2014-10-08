@@ -18,3 +18,8 @@ task :headers do
   command_line = CopyrightHeader::CommandLine.new( args )
   command_line.execute
 end
+
+task :jenkins do
+  # TODO
+  puts "No tests, maybe add some specs?"
+end
