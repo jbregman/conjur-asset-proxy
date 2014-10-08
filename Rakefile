@@ -1,5 +1,6 @@
 require "bundler/gem_tasks"
 
+desc "Update copyright headers"
 task :headers do
   require 'rubygems'
   require 'copyright_header'
