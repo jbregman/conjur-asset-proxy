@@ -79,6 +79,15 @@ module Conjur
         OpenSSL::SSL::SSLContext::DEFAULT_CERT_STORE.add_file options[:cacert]
       end
 
+      Rack::StreamingProxy::Session.class_eval do
+        # set timeout to 30 min, 30 seconds is not enought for uploading
+        def start
+          @piper = Servolux::Piper.new 'r', timeout: 1600
+          @piper.child  { child }
+          @piper.parent { parent }
+        end
+      end
+
       Rack::Server.start app: self, Port: options[:port] || 8080, Host: options[:address] || '127.0.0.1'
     end
   end
