@@ -21,6 +21,7 @@
 
 require 'rack'
 require 'rack/streaming_proxy'
+require 'unicorn-rails'
 
 module Conjur
   class Proxy
