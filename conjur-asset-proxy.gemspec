@@ -6,10 +6,10 @@ require 'conjur/asset/proxy/version'
 Gem::Specification.new do |spec|
   spec.name          = "conjur-asset-proxy"
   spec.version       = Conjur::Asset::Proxy::VERSION
-  spec.authors       = ["Rafał Rzepecki"]
-  spec.email         = ["rafal@conjur.net"]
+  spec.authors       = ["Rafał Rzepecki", "Mikalai Sevastsyanau"]
+  spec.email         = ["rafal@conjur.net", "mikalai@conjur.net"]
   spec.summary       = %q{Simple HTTP proxy which adds Conjur authentication headers}
-  spec.homepage      = "https://github.com/conjurinc/conjur-asset-host-factory"
+  spec.homepage      = "https://github.com/conjurinc/conjur-asset-proxy"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files -z`.split("\x0")
