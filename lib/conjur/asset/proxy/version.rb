@@ -21,7 +21,7 @@
 module Conjur
   module Asset
     module Proxy
-      VERSION = "0.5.0"
+      VERSION = "0.5.1"
     end
   end
 end
