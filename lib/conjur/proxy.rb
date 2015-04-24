@@ -92,11 +92,7 @@ module Conjur
     def start options = {}
       configure options
       
-      rack_options = { app: self }
-      rack_options[:Port] = options[:port] if options[:port]
-      rack_options[:Host] = options[:address] if options[:address]
-
-      Rack::Server.start rack_options
+      Rack::Server.start app: self, Port: options[:port] || 8080, Host: options[:address] || '127.0.0.1'
     end
   end
 end
