@@ -4,9 +4,7 @@ Simple HTTP proxy which adds Conjur authentication headers.
 
 ## Installation
 
-    $ gem install conjur-asset-proxy
-
-Add `proxy` to `plugins` in your `.conjurrc`.
+    $ conjur plugin install proxy
 
 ## Usage
 
