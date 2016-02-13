@@ -61,6 +61,15 @@ The proxy will keep running until terminated.
 
     c.action do |global_options, options, args|
       url = args.shift or help_now!("missing URL")
+      
+      #check the auth_type
+      if options[:at] == "basic"
+
+      elsif options[:at] == "conjur"
+
+      else
+	help_now!("Invalid auth_type: "+options[:at])
+      end
 
       if options[:k]
         options[:insecure] = true
