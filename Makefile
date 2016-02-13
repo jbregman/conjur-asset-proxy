@@ -1,5 +1,6 @@
 name=proxy
-version=0.5.2
+old_version=0.5.3
+version=0.5.3
 
 build: clean
 	gem build conjur-asset-$(name).gemspec
@@ -10,7 +11,7 @@ install: build
 
 clean:
 	conjur plugin uninstall $(name)
-	rm conjur-asset-$(name)-$(version).gem
+	rm conjur-asset-$(name)-$(old_version).gem
 
 show:
 	conjur plugin show $(name)
