@@ -65,6 +65,11 @@ The proxy will keep running until terminated.
       #check the auth_type
       if options[:at] == "basic"
 
+	username = options[:bu]
+	if username.nil? || username.blank?
+		help_now!("-bu is required for -at basic")
+	end
+
       elsif options[:at] == "conjur"
 
       else
