@@ -14,7 +14,7 @@ Simple HTTP proxy which adds Conjur authentication headers.
     Press Ctrl-C to stop.
 ## Working with Plugins
 To change the version of the plugin - you modify the lib/conjur/asset/proxy/version.rb file
-'''
+```
 module Conjur
   module Asset
     module Proxy
@@ -22,9 +22,9 @@ module Conjur
     end
   end
 end
-'''
+```
 To change the description when you run conjur plugin show, modify the conjur-asset-proxy.gemspec
-'''
+```
   spec.name          = "conjur-asset-proxy"
   spec.version       = Conjur::Asset::Proxy::VERSION
   spec.authors       = ["Rafa Rzepecki", "Mikalai Sevastsyana","Josh Bregman"]
@@ -32,7 +32,7 @@ To change the description when you run conjur plugin show, modify the conjur-ass
   spec.summary       = %q{Simple HTTP proxy which adds authentication headers from Conjur"}
   spec.homepage      = "https://github.com/conjurinc/conjur-asset-proxy"
   spec.license       = "MIT"
-'''
+```
 ## Contributing
 
 1. Fork it ( https://github.com/[my-github-username]/conjur-asset-proxy/fork )
