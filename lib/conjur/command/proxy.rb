@@ -22,10 +22,14 @@
 class Conjur::Command::Proxy < Conjur::Command
   desc "Proxy to a protected HTTP service"
   long_desc <<-DESC
-Launch an HTTP proxy to a Conjur-protected service. The proxy adds a Conjur
-authorization header to every request. This allows eg. using browser to access
-a UI of a Conjur-protected web application. The proxy will keep running until
-terminated.
+Launch an HTTP proxy to a protected service. 
+
+If the service is protected by Conjur, then the proxy adds a Conjur authorization header to every request. This allows eg. using browser to access
+a UI of a Conjur-protected web application.
+
+If the service is protected by basic authentication, then the proxy retrives the username and password from Conjur, and adds them to the authorization header of every request.  
+
+The proxy will keep running until terminated.
   DESC
 
   arg :url
@@ -44,6 +48,16 @@ terminated.
 
     c.flag :cacert,
         desc: "Verify SSL using the provided cert file"
+    
+    c.flag :bu, :basic_username,
+	desc: "Conjur resource for the username added to the basic authorization header"
+
+    c.flag :bp, :basic_password,
+	desc: "Conjur resource for the password added to the basic authorzation header"
+
+    c.flag :at, :auth_type,
+	desc: "The authentication type for the proxy - conjur or basic",
+	default_value: "conjur"
 
     c.action do |global_options, options, args|
       url = args.shift or help_now!("missing URL")
