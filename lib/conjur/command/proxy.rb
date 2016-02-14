@@ -65,18 +65,31 @@ The proxy will keep running until terminated.
       #check the auth_type
       if options[:at] == "basic"
 
+
 	username = options[:bu]
 	if username.nil? || username.blank?
-		help_now!("-bu is required for -at basic")
+		help_now!("--bu is required for --at basic")
 	else 
-		#check if the user has execute permission on the variable
+		#check if the proxy has execute permission on the variable
 		username_resource = api.variable(username).resource
 
 		if !(username_resource.permitted? 'execute')
-			help_now!("User does not have execute permission on "+username)
+			help_now!("proxy does not have execute permission on "+username)
 		end
 	end
 
+
+	password = options[:bp]
+	if password.nil? || password.blank?
+		help_now!("--bp is required for --at basic")
+	else 
+		#check if the proxy has execute permission on the variable
+		password_resource = api.variable(password).resource
+
+		if !(password_resource.permitted? 'execute')
+			help_now!("proxy does not have execute permission on "+password)
+		end
+	end
       elsif options[:at] == "conjur"
 
       else
