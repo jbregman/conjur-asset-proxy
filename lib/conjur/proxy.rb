@@ -36,9 +36,12 @@ module Conjur
 
         ret
       end
+      @auth_method = "conjur"
+      @basic_username = ""
+      @basic_password = ""
     end
 
-    attr_reader :proxy, :conjur
+    attr_reader :proxy, :conjur, :auth_method, :basic_username, :basic_password
 
     def call env
       env['HTTP_AUTHORIZATION'] = conjur.credentials[:headers][:authorization]
