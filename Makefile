@@ -22,4 +22,4 @@ test:
 	conjur proxy --at basic \
 		--bu $(name)/$(version)/test/username \
 		--bp $(name)/$(version)/test/password \
-		http://www.foo.com 
+		http://httpbin.org &
