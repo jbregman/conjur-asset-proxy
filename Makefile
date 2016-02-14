@@ -16,5 +16,6 @@ clean:
 	mv /tmp/.conjurrc-$(name) ~/.conjurrc
 	rm conjur-asset-$(name)-$(old_version).gem
 
-show:
+test: 
 	conjur plugin show $(name)
+	conjur policy load --collection $(name)/$(version) policy.rb
