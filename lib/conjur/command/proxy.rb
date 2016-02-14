@@ -112,11 +112,12 @@ The proxy will keep running until terminated.
 
       url = uri.to_s
 
-      options.slice! :port, :address, :insecure, :cacert
+      options.slice! :port, :address, :insecure, :cacert, :at, :bu, :bp
       options.delete :port unless options[:port].respond_to? :to_i
 
       require 'conjur/proxy'
-
+      print options
+      print "-------"
       Conjur::Proxy.new(url, api).start options
     end
   end
