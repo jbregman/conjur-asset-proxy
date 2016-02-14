@@ -19,3 +19,7 @@ clean:
 test: 
 	conjur plugin show $(name)
 	conjur policy load --collection $(name)/$(version) policy.rb
+	conjur proxy --at basic \
+		--bu $(name)/$(version)/test/username \
+		--bp $(name)/$(version)/test/password \
+		http://www.foo.com 
