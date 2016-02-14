@@ -68,6 +68,13 @@ The proxy will keep running until terminated.
 	username = options[:bu]
 	if username.nil? || username.blank?
 		help_now!("-bu is required for -at basic")
+	else 
+		#check if the user has execute permission on the variable
+		username_resource = api.variable(username).resource
+
+		if !(username_resource.permitted? 'execute')
+			help_now!("User does not have execute permission on "+username)
+		end
 	end
 
       elsif options[:at] == "conjur"
