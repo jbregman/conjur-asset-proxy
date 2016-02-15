@@ -36,6 +36,8 @@ module Conjur
 
         ret
       end
+
+      #Added support for multiple authorization headers
       @auth_method = "conjur"
       @basic_username = ""
       @basic_password = ""
@@ -44,7 +46,14 @@ module Conjur
     attr_reader :proxy, :conjur, :auth_method, :basic_username, :basic_password
 
     def call env
-      env['HTTP_AUTHORIZATION'] = conjur.credentials[:headers][:authorization]
+	
+	if @auth_method == "basic"
+		header = Base64.encode64(@basic_username+':'+@basic_password)
+		authorization_header = 'Basic '+header
+		env['HTTP_AUTHORIZATION'] = authorization_header.rstrip
+	else
+      		env['HTTP_AUTHORIZATION'] = conjur.credentials[:headers][:authorization]
+	end
 
       if (env['REQUEST_METHOD'] == 'POST' || env['REQUEST_METHOD'] == 'PUT')
         if !env.include?('CONTENT_LENGTH') && (!env.include?('TRANSFER_ENCODING') ||
@@ -90,6 +99,21 @@ module Conjur
           @piper.parent { parent }
         end
       end
+
+     print "====================================="
+     print options
+     print "====================================="
+
+     #check if the auth method is basic
+     if options[:at] == "basic"
+
+	@auth_method = "basic"
+	@basic_username = @conjur.variable(options[:bu]).value
+	@basic_password = @conjur.variable(options[:bp]).value
+
+
+     end
+
     end
 
     def start options = {}
