@@ -1,6 +1,6 @@
 name=proxy
 old_version=0.5.3
-version=0.5.3
+version=0.6.0
 
 build: clean
 	gem build conjur-asset-$(name).gemspec

@@ -91,7 +91,7 @@ The proxy will keep running until terminated.
 		end
 	end
       elsif options[:t] == "conjur"
-
+	## NOOP
       else
 	help_now!("Invalid auth_type: #{options[:t]}")
       end
