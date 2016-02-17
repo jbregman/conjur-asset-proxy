@@ -8,7 +8,7 @@ task :headers do
   args = {
     :license => 'MIT',
     :copyright_software => 'Conjur CLI proxy plugin',
-    :copyright_software_description => "Simple HTTP proxy which adds authentication headers from Conjur authentication headers",
+    :copyright_software_description => "Simple HTTP proxy which adds authentication headers from Conjurs",
     :copyright_holders => ['Conjur Inc.'],
     :copyright_years => ['2016'],
     :add_path => 'lib',

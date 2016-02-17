@@ -10,9 +10,9 @@ test:
 	#conjur script execute --collection $(name)/$(version) test-data.rb
 	conjur variable values add $(name)/$(version)/test/password test
 	conjur variable values add $(name)/$(version)/test/username test
-	conjur proxy --at basic \
-		--bu $(name)/$(version)/test/username \
-		--bp $(name)/$(version)/test/password \
+	conjur proxy -t basic \
+		-u $(name)/$(version)/test/username \
+		-w $(name)/$(version)/test/password \
 		http://browserspy.dk &
 	sleep 10
 	curl http://localhost:8080/password-ok.php | grep Success

@@ -49,13 +49,13 @@ The proxy will keep running until terminated.
     c.flag :cacert,
         desc: "Verify SSL using the provided cert file"
     
-    c.flag :bu, :basic_username,
-	desc: "Conjur resource for the username added to the basic authorization header"
+    c.flag :u, :basic_username,
+	desc: "Conjur variable for the username added to the basic authorization header"
 
-    c.flag :bp, :basic_password,
-	desc: "Conjur resource for the password added to the basic authorzation header"
+    c.flag :w, :basic_password,
+	desc: "Conjur variable for the password added to the basic authorzation header"
 
-    c.flag :at, :auth_type,
+    c.flag :t, :auth_type,
 	desc: "The authentication type for the proxy - conjur or basic",
 	default_value: "conjur"
 
@@ -63,37 +63,37 @@ The proxy will keep running until terminated.
       url = args.shift or help_now!("missing URL")
       
       #check the auth_type
-      if options[:at] == "basic"
+      if options[:t] == "basic"
 
 
-	username = options[:bu]
-	if username.nil? || username.blank?
-		help_now!("--bu is required for --at basic")
+	username = options[:u]
+	if username.blank?
+		help_now!("--u is required for --t basic")
 	else 
 		#check if the proxy has execute permission on the variable
 		username_resource = api.variable(username).resource
 
-		if !(username_resource.permitted? 'execute')
-			help_now!("proxy does not have execute permission on "+username)
+		unless username_resource.permitted? 'execute'
+			help_now!("proxy does not have execute permission on #{username}")
 		end
 	end
 
 
-	password = options[:bp]
-	if password.nil? || password.blank?
-		help_now!("--bp is required for --at basic")
+	password = options[:w]
+	if password.blank?
+		help_now!("--w is required for --t basic")
 	else 
 		#check if the proxy has execute permission on the variable
 		password_resource = api.variable(password).resource
 
-		if !(password_resource.permitted? 'execute')
-			help_now!("proxy does not have execute permission on "+password)
+		unless password_resource.permitted? 'execute'
+			help_now!("proxy does not have execute permission on #{password}")
 		end
 	end
-      elsif options[:at] == "conjur"
+      elsif options[:t] == "conjur"
 
       else
-	help_now!("Invalid auth_type: "+options[:at])
+	help_now!("Invalid auth_type: #{options[:t]}")
       end
 
       if options[:k]
@@ -112,7 +112,7 @@ The proxy will keep running until terminated.
 
       url = uri.to_s
 
-      options.slice! :port, :address, :insecure, :cacert, :at, :bu, :bp
+      options.slice! :port, :address, :insecure, :cacert, :t, :u, :w
       options.delete :port unless options[:port].respond_to? :to_i
 
       require 'conjur/proxy'

@@ -48,9 +48,9 @@ module Conjur
     def call env
 	
 	if @auth_method == "basic"
-		header = Base64.encode64(@basic_username+':'+@basic_password)
+		header = Base64.strict_encode64(@basic_username+':'+@basic_password)
 		authorization_header = 'Basic '+header
-		env['HTTP_AUTHORIZATION'] = authorization_header.rstrip
+		env['HTTP_AUTHORIZATION'] = authorization_header
 	else
       		env['HTTP_AUTHORIZATION'] = conjur.credentials[:headers][:authorization]
 	end
@@ -100,16 +100,12 @@ module Conjur
         end
       end
 
-     print "====================================="
-     print options
-     print "====================================="
-
      #check if the auth method is basic
-     if options[:at] == "basic"
+     if options[:t] == "basic"
 
 	@auth_method = "basic"
-	@basic_username = @conjur.variable(options[:bu]).value
-	@basic_password = @conjur.variable(options[:bp]).value
+	@basic_username = @conjur.variable(options[:u]).value
+	@basic_password = @conjur.variable(options[:w]).value
 
 
      end
