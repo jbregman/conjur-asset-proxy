@@ -14,6 +14,7 @@ clean:
 	#a bug in the plugin, so we need to manuall remove the plugin
 	cat ~/.conjurrc | grep -v $(name) > /tmp/.conjurrc-$(name)
 	mv /tmp/.conjurrc-$(name) ~/.conjurrc
+	touch conjur-asset-$(name)-$(old_version).gem
 	rm conjur-asset-$(name)-$(old_version).gem
 
 test-conjur:
